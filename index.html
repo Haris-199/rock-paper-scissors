@@ -41,15 +41,46 @@
 
                 switch(difference) {
                     case 1:
-                        return `You Win! ${playerSelection} beats ${computerSelection}.`;
+                        console.log(`You won this round! ${playerSelection} beats ${computerSelection}.`)
+                        return 1;
                     case -1:
-                        return `You Lose! ${computerSelection} beats ${playerSelection}.`;
+                        console.log(`You lost this round! ${computerSelection} beats ${playerSelection}.`);
+                        return 0;
                     case 2:
-                        return `You Lose! ${computerSelection} beats ${playerSelection}.`;
+                        console.log(`You lost this round! ${computerSelection} beats ${playerSelection}.`);
+                        return 0;
                     case -2:
-                        return `You Win! ${playerSelection} beats ${computerSelection}.`;
+                        console.log(`You won this round! ${playerSelection} beats ${computerSelection}.`);
+                        return 1;
                 }
             }
+
+            function game() {
+                const ROUNDS = 5;
+                playerWins = 0;
+                computerWins = 0;
+
+                for (let i = 0; i < ROUNDS; i++) {
+                    playerSelection = prompt("Rock, Paper, or Scissors?");
+                    computerSelection = getComputerChoice();
+
+                    const playerWon = playRound(playerSelection, computerSelection);
+
+                    if (playerWon) playerWins++;
+                    else computerWins++;
+
+                    if (playerWins === 3) {
+                        console.log("You won the game!")
+                        break;
+                    }
+                    if (computerWins === 3) {
+                        console.log("You lost the game!")
+                        break;
+                    }
+                }
+            }
+            console.log("Hello World");
+            game();
 
         </script>
     </body>
