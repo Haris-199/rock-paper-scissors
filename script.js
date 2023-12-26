@@ -1,8 +1,12 @@
 const buttonsDiv = document.getElementById("playerChoiceBtns");
+
 const playerChoice = document.getElementById("playerChoice");
 const computerChoice = document.getElementById("computerChoice");
 const playerChoiceText = document.createTextNode("");
 const computerChoiceText = document.createTextNode("");
+
+const roundResult = document.getElementById("roundResult");
+const gameResult = document.getElementById("gameResult");
 
 let playerWins = 0;
 let computerWins = 0;
@@ -18,6 +22,7 @@ buttonsDiv.addEventListener("click", (event) => {
     computerChoice.appendChild(computerChoiceText);
     
     const playerWon = playRound(playerSelection, computerSelection);
+    
 
     if (playerWon) playerWins++;
     else computerWins++;
@@ -29,20 +34,6 @@ buttonsDiv.addEventListener("click", (event) => {
         console.log("You lost the game!")
     }
 });
-
-// const p = document.getElementById("playerChoice");
-
-// console.log(p.innerText);
-
-// const t =document.createTextNode("hi");
-// p.appendChild(t);
-// console.log(p.innerText);
-// t.nodeValue = "rock";
-// // p.appendChild(t);
-// console.log(p);
-// // t.remove()
-// console.log(t);
-// console.log(p.innerText);
 
 function getPlayerChoice(id) {
     switch (id) {
@@ -90,16 +81,16 @@ function playRound(playerSelection, computerSelection) {
 
     switch (difference) {
         case 1:
-            console.log(`You won this round! ${playerSelection} beats ${computerSelection}.`)
+            roundResult.textContent = `You won this round! ${playerSelection} beats ${computerSelection}.`;
             return 1;
         case -1:
-            console.log(`You lost this round! ${computerSelection} beats ${playerSelection}.`);
+            roundResult.textContent = `You lost this round! ${computerSelection} beats ${playerSelection}.`;
             return 0;
         case 2:
-            console.log(`You lost this round! ${computerSelection} beats ${playerSelection}.`);
+            roundResult.textContent = `You lost this round! ${computerSelection} beats ${playerSelection}.`;
             return 0;
         case -2:
-            console.log(`You won this round! ${playerSelection} beats ${computerSelection}.`);
+            roundResult.textContent = `You won this round! ${playerSelection} beats ${computerSelection}.`;
             return 1;
     }
 }
