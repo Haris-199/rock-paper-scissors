@@ -8,19 +8,28 @@ const computerChoiceText = document.createTextNode("");
 const roundResult = document.getElementById("roundResult");
 const gameResult = document.getElementById("gameResult");
 
+const playerScore = document.getElementById("playerScore");
+const computerScore = document.getElementById("computerScore");
+
 let playerWins = 0;
 let computerWins = 0;
 
+const pScore = document.createTextNode(playerWins);
+const cScore = document.createTextNode(computerWins);
+
+playerScore.appendChild(pScore);
+computerScore.appendChild(cScore);
+
 buttonsDiv.addEventListener("click", (event) => {
+    if (playerWins >= 5 || computerWins >= 5) return;
+
     let playerSelection = getPlayerChoice(event.target.id);
     let computerSelection = getComputerChoice();
 
     if (playerSelection == undefined) return;
     
-    while (computerSelection === playerSelection) {
-        console.log(playerSelection, computerSelection);
+    while (computerSelection === playerSelection)
         computerSelection = getComputerChoice();
-    }
 
     playerChoiceText.nodeValue = playerSelection;
     computerChoiceText.nodeValue = computerSelection;
@@ -30,16 +39,14 @@ buttonsDiv.addEventListener("click", (event) => {
     
     const playerWon = playRound(playerSelection, computerSelection);
     
-
     if (playerWon) playerWins++;
     else computerWins++;
 
-    if (playerWins === 5) {
-        console.log("You won the game!")
-    }
-    if (computerWins === 5) {
-        console.log("You lost the game!")
-    }
+    pScore.nodeValue = playerWins;
+    cScore.nodeValue = computerWins;
+
+    if (playerWins === 5) gameResult.textContent = "You won the game!";
+    if (computerWins === 5) gameResult.textContent = "You lost the game.";
 });
 
 function getPlayerChoice(id) {
@@ -77,10 +84,6 @@ function enumerate(choice) {
 function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
-
-    // if (playerSelection === computerSelection) {
-    //     return playRound(playerSelection, getComputerChoice());
-    // }
 
     const playerChoice = enumerate(playerSelection);
     const computerChoice = enumerate(computerSelection);
