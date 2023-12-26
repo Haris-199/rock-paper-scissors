@@ -1,3 +1,62 @@
+const buttonsDiv = document.getElementById("playerChoiceBtns");
+const playerChoice = document.getElementById("playerChoice");
+const computerChoice = document.getElementById("computerChoice");
+const playerChoiceText = document.createTextNode("");
+const computerChoiceText = document.createTextNode("");
+
+let playerWins = 0;
+let computerWins = 0;
+
+buttonsDiv.addEventListener("click", (event) => {
+    let playerSelection = getPlayerChoice(event.target.id);
+    let computerSelection = getComputerChoice();
+
+    playerChoiceText.nodeValue = playerSelection;
+    computerChoiceText.nodeValue = computerSelection;
+
+    playerChoice.appendChild(playerChoiceText);
+    computerChoice.appendChild(computerChoiceText);
+    
+    const playerWon = playRound(playerSelection, computerSelection);
+
+    if (playerWon) playerWins++;
+    else computerWins++;
+
+    if (playerWins === 5) {
+        console.log("You won the game!")
+    }
+    if (computerWins === 5) {
+        console.log("You lost the game!")
+    }
+});
+
+// const p = document.getElementById("playerChoice");
+
+// console.log(p.innerText);
+
+// const t =document.createTextNode("hi");
+// p.appendChild(t);
+// console.log(p.innerText);
+// t.nodeValue = "rock";
+// // p.appendChild(t);
+// console.log(p);
+// // t.remove()
+// console.log(t);
+// console.log(p.innerText);
+
+function getPlayerChoice(id) {
+    switch (id) {
+        case "rockBtn":
+            return "Rock";
+        case "paperBtn":
+            return "Paper";
+        case "scissorsBtn":
+            return "Scissors";
+        default:
+            console.log("ERROR");
+    }
+}
+
 function getComputerChoice() {
     const ran = Math.random();
     if (0 <= ran && ran < 1 / 3) return "Rock";
@@ -44,41 +103,3 @@ function playRound(playerSelection, computerSelection) {
             return 1;
     }
 }
-
-const buttonsDiv = document.querySelector("#playerChoiceBtns");
-let playerWins = 0;
-let computerWins = 0;
-
-buttonsDiv.addEventListener("click", (event) => {
-    let playerSelection;
-    let computerSelection = getComputerChoice();
-
-    switch (event.target.id) {
-        case "rockBtn":
-            playerSelection = "rock";
-            console.log("rbtn");
-            break;
-        case "paperBtn":
-            playerSelection = "paper";
-            console.log("pbtn");
-            break;
-        case "scissorsBtn":
-            playerSelection = "scissors";
-            console.log("sbtn");
-            break;
-        default:
-            console.log("ERROR");
-    }
-
-    const playerWon = playRound(playerSelection, computerSelection);
-
-    if (playerWon) playerWins++;
-    else computerWins++;
-
-    if (playerWins === 5) {
-        console.log("You won the game!")
-    }
-    if (computerWins === 5) {
-        console.log("You lost the game!")
-    }
-});
