@@ -1,13 +1,13 @@
 function getComputerChoice() {
     const ran = Math.random();
-    if (0 <= ran && ran < 1/3) return "Rock";
-    if (1/3 <= ran && ran < 2/3) return "Paper";
-    if (2/3 <= ran && ran < 1) return "Scissors";
+    if (0 <= ran && ran < 1 / 3) return "Rock";
+    if (1 / 3 <= ran && ran < 2 / 3) return "Paper";
+    if (2 / 3 <= ran && ran < 1) return "Scissors";
 }
 
 function enumerate(choice) {
     choice = choice.toLowerCase();
-    switch(choice) {
+    switch (choice) {
         case "rock":
             return 0;
         case "paper":
@@ -29,7 +29,7 @@ function playRound(playerSelection, computerSelection) {
     const computerChoice = enumerate(computerSelection);
     const difference = playerChoice - computerChoice;
 
-    switch(difference) {
+    switch (difference) {
         case 1:
             console.log(`You won this round! ${playerSelection} beats ${computerSelection}.`)
             return 1;
@@ -45,28 +45,40 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game() {
-    const ROUNDS = 5;
-    playerWins = 0;
-    computerWins = 0;
+const buttonsDiv = document.querySelector("#playerChoiceBtns");
+let playerWins = 0;
+let computerWins = 0;
 
-    for (let i = 0; i < ROUNDS; i++) {
-        playerSelection = prompt("Rock, Paper, or Scissors?");
-        computerSelection = getComputerChoice();
+buttonsDiv.addEventListener("click", (event) => {
+    let playerSelection;
+    let computerSelection = getComputerChoice();
 
-        const playerWon = playRound(playerSelection, computerSelection);
-
-        if (playerWon) playerWins++;
-        else computerWins++;
-
-        if (playerWins === 3) {
-            console.log("You won the game!")
+    switch (event.target.id) {
+        case "rockBtn":
+            playerSelection = "rock";
+            console.log("rbtn");
             break;
-        }
-        if (computerWins === 3) {
-            console.log("You lost the game!")
+        case "paperBtn":
+            playerSelection = "paper";
+            console.log("pbtn");
             break;
-        }
+        case "scissorsBtn":
+            playerSelection = "scissors";
+            console.log("sbtn");
+            break;
+        default:
+            console.log("ERROR");
     }
-}
-game();
+
+    const playerWon = playRound(playerSelection, computerSelection);
+
+    if (playerWon) playerWins++;
+    else computerWins++;
+
+    if (playerWins === 5) {
+        console.log("You won the game!")
+    }
+    if (computerWins === 5) {
+        console.log("You lost the game!")
+    }
+});
