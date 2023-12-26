@@ -15,6 +15,13 @@ buttonsDiv.addEventListener("click", (event) => {
     let playerSelection = getPlayerChoice(event.target.id);
     let computerSelection = getComputerChoice();
 
+    if (playerSelection == undefined) return;
+    
+    while (computerSelection === playerSelection) {
+        console.log(playerSelection, computerSelection);
+        computerSelection = getComputerChoice();
+    }
+
     playerChoiceText.nodeValue = playerSelection;
     computerChoiceText.nodeValue = computerSelection;
 
@@ -71,9 +78,9 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
 
-    if (playerSelection === computerSelection) {
-        return playRound(playerSelection, getComputerChoice());
-    }
+    // if (playerSelection === computerSelection) {
+    //     return playRound(playerSelection, getComputerChoice());
+    // }
 
     const playerChoice = enumerate(playerSelection);
     const computerChoice = enumerate(computerSelection);
